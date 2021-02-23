@@ -1,0 +1,1 @@
+npx rollup -cw --environment DEST:main
