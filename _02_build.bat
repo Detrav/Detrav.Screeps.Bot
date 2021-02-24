@@ -1,1 +1,1 @@
-npx rollup -c --environment DEST:main
+npx rollup -c --environment DEST:default
