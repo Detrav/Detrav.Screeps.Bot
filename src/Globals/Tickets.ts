@@ -17,7 +17,6 @@ export const getTicket = function (id: string) {
 };
 
 export const pushTicket = function (ticket: Ticket) {
-  ticket.time = Game.time;
   ticketsMap.set(ticket.id, ticket);
 };
 
@@ -29,7 +28,7 @@ export const ticketsProcessor: GlobalProcessor = {
   },
   step: function () {
     for (let [key, value] of ticketsMap) {
-      if (value.phase === TicketPhase.Ready || (value.lifeTime && value.time && value.lifeTime + value.time < Game.time)) {
+      if (value.phase === TicketPhase.Ready) {
         ticketsMap.delete(key);
       }
     }
