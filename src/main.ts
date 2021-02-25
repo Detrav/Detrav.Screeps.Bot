@@ -1,57 +1,32 @@
-import { creepProcessors } from "./Creeps";
-import { globalProcessors } from "./Globals";
+import { processors, processorsByPriority } from "./CreepProcessors";
 
-var notConfigurated = true;
+const global_period = processorsByPriority.length + 10;
+
+for (let proc of processorsByPriority) {
+  console.log(proc.processorName);
+}
 
 export const loop = function () {
-  if (notConfigurated) {
-    for (let proc in creepProcessors) {
-      creepProcessors[proc].config();
+  const number = Game.time % global_period;
+
+  if (number < processorsByPriority.length) {
+    const proc = processorsByPriority[number];
+
+    proc.config();
+
+    for (let spawnName in Game.spawns) {
+      proc.spawn(spawnName);
+    }
+    for (let roomName in Game.rooms) {
+      proc.room(roomName);
     }
 
-    for (let proc in globalProcessors) {
-      globalProcessors[proc].config();
+    for (let creepName in Memory.creeps) {
+      processors[Memory.creeps[creepName].processor].scan(creepName);
     }
-    notConfigurated = false;
   }
 
-  for (let procName in globalProcessors) {
-    const proc = globalProcessors[procName];
-
-    if ((Game.time + proc.shift) % proc.period == 0) {
-      globalProcessors[procName].step();
-    }
-  }
-
-  for (let creepName in Game.creeps) {
-    const creep = Game.creeps[creepName];
-    creepProcessors[creep.memory.role].step(creep);
+  for (let creepName in Memory.creeps) {
+    processors[Memory.creeps[creepName].processor].step(creepName);
   }
 };
-
-// import { processors } from "./Processors";
-
-// const global_period = 15;
-// const spawn = 0;
-// const scan = 1;
-
-// export const loop = function () {
-//   if ((Game.time + spawn) % global_period == 0) {
-//     for (let spawnName in Game.spawns) {
-//       for (let procName in processors) {
-//         processors[procName].spawn(spawnName);
-//       }
-//     }
-//   } else if (((Game.time + scan) % global_period) * 2 == 0) {
-//     for (let spawnName in Game.spawns) {
-//       for (let procName in processors) {
-//         processors[procName].scan(spawnName);
-//       }
-//     }
-//   }
-
-//   for (let creepName in Game.creeps) {
-//     const creep = Game.creeps[creepName];
-//     processors[creep.memory.processor].step(creep);
-//   }
-// };
