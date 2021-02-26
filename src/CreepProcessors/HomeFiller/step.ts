@@ -1,18 +1,7 @@
 import { CreepMemoryHomeFiller, FillerRole } from "./types";
 
-export const step = function (creepName: string) {
-  const creep = Game.creeps[creepName];
-
-  if (!creep) return;
+export const step = function (creep: Creep) {
   const memory = creep.memory as CreepMemoryHomeFiller;
-
-  if (memory.pause) {
-    memory.pause--;
-    if (memory.pause < 0) {
-      delete memory.pause;
-    }
-    return;
-  }
 
   switch (memory.role) {
     case FillerRole.PushToTarget:

@@ -1,5 +1,5 @@
 import { CreepTemplate, trySpawnCreep } from "utils/SpawnHelper";
-import { CreepMemoryHomeHarvest, plan, PROCESSOR_NAME } from "./types";
+import { CreepMemoryHomeHarvest, plan } from "./types";
 
 function placeContainerNearSource(source: Source) {
   const area = source.room.lookAtArea(source.pos.y - 2, source.pos.x - 2, source.pos.y + 2, source.pos.x + 2, true);
@@ -24,17 +24,18 @@ function placeContainerNearSource(source: Source) {
 
 const templates: CreepTemplate[] = [
   // 100 50 50 50 50 = 300
+  { energy: 700, body: [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE] },
   { energy: 500, body: [WORK, WORK, WORK, CARRY, MOVE] },
   { energy: 300, body: [WORK, CARRY, MOVE] }
 ];
 
 function SpawnCreepsForSource(spawn: StructureSpawn, source: Source, count: number) {
   for (let i = 0; i < count; i++) {
-    const creepName = PROCESSOR_NAME + "-" + source.id + "-" + i;
+    const creepName = CreepProcessorTypes.HomeHarvester + "-" + source.id + "-" + i;
     const creep = Game.creeps[creepName];
     if (!creep) {
       trySpawnCreep(spawn, templates, creepName, <CreepMemoryHomeHarvest>{
-        processor: PROCESSOR_NAME,
+        processor: CreepProcessorTypes.HomeHarvester,
         source: source.id
       });
     }

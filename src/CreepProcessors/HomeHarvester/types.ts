@@ -1,7 +1,5 @@
 import { planMake } from "utils/PlanMaker";
 
-export const PROCESSOR_NAME = "home-harvester";
-
 export const plan = planMake(`
   XXXXX
   X___X

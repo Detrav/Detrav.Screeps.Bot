@@ -4,19 +4,13 @@ import * as homeExtPlacer from "./HomeExtentionPlacer";
 import * as homeUpgrader from "./HomeUpgrader";
 import * as homeFiller from "./HomeFiller";
 
-const result: CreepProcessors = {};
+const result: CreepProcessor[] = [];
 
-function copyProcessors(from: CreepProcessor[], to: CreepProcessors) {
-  for (let value of from) {
-    to[value.processorName] = value;
-  }
-}
-
-copyProcessors(harvester.processors, result);
-copyProcessors(builder.processors, result);
-copyProcessors(homeExtPlacer.processors, result);
-copyProcessors(homeUpgrader.processors, result);
-copyProcessors(homeFiller.processors, result);
+result[harvester.processor.processorType] = harvester.processor;
+result[builder.processor.processorType] = builder.processor;
+result[homeExtPlacer.processor.processorType] = homeExtPlacer.processor;
+result[homeUpgrader.processor.processorType] = homeUpgrader.processor;
+result[homeFiller.processor.processorType] = homeFiller.processor;
 
 export const processors = result;
-export const processorsByPriority = _.sortBy(Object.values(result), m => m.priority);
+export const processorsByPriority = _.sortBy(result, m => m.priority);

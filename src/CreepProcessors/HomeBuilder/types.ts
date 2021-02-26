@@ -1,5 +1,3 @@
-export const PROCESSOR_NAME = "home-builder";
-
 export const builder_count = 2;
 
 export enum BuilderRole {
@@ -14,7 +12,6 @@ export enum BuilderRole {
 export interface CreepMemoryHomeBuilder extends CreepMemory {
   role: BuilderRole;
   containerId?: Id<StructureContainer>;
-  pause?: number;
   construction?: Id<ConstructionSite>;
   structure?: Id<Structure>;
 }

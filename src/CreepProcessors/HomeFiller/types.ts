@@ -1,5 +1,3 @@
-export const PROCESSOR_NAME = "home-filler";
-
 export enum FillerRole {
   SearchSource = 1,
   PullFromSource = 2,

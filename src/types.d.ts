@@ -2,23 +2,27 @@
 
 // memory extension samples
 interface CreepMemory {
-  processor: string;
+  processor: CreepProcessorTypes;
+  pause?: number;
+}
+
+declare enum CreepProcessorTypes {
+  HomeBuilder = 0,
+  HomeExtentionPlacer = 1,
+  HomeFiller = 2,
+  HomeHarvester = 3,
+  HomeUpgrader = 4
 }
 
 interface SpawnMemory {
   energyCapacity: number;
 }
 
-interface CreepProcessors {
-  [K: string]: CreepProcessor;
-}
-
 interface CreepProcessor {
-  processorName: string;
+  processorType: CreepProcessorTypes;
   priority: number;
   config: () => void;
-  step: (creepName: string) => void;
-  scan: (creepName: string) => void;
+  step: (creep: Creep) => void;
   spawn: (spawnName: string) => void;
   room: (roomName: string) => void;
 }

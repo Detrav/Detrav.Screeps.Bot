@@ -3,7 +3,6 @@ let maxAttemps = 3;
 export interface CreepTemplate {
   energy: number;
   body: BodyPartConstant[];
-  noSpawn?: boolean;
 }
 
 const attemps = new Map<string, number>();
@@ -41,8 +40,6 @@ export const trySpawnCreep = function (
   if (index > templates.length - 1) {
     index = templates.length - 1;
   }
-
-  if (templates[index].noSpawn) return;
 
   if (
     spawn.spawnCreep(templates[index].body, name, {

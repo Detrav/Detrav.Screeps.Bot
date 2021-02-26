@@ -3,7 +3,7 @@ import { processors, processorsByPriority } from "./CreepProcessors";
 const global_period = processorsByPriority.length + 10;
 
 for (let proc of processorsByPriority) {
-  console.log(proc.processorName);
+  console.log(proc.processorType);
 }
 
 export const loop = function () {
@@ -20,13 +20,24 @@ export const loop = function () {
     for (let roomName in Game.rooms) {
       proc.room(roomName);
     }
-
-    for (let creepName in Memory.creeps) {
-      processors[Memory.creeps[creepName].processor].scan(creepName);
-    }
   }
 
   for (let creepName in Memory.creeps) {
-    processors[Memory.creeps[creepName].processor].step(creepName);
+    // lets pause
+    const memory = Memory.creeps[creepName];
+    if (memory.pause) {
+      memory.pause--;
+      if (memory.pause < 0) {
+        delete memory.pause;
+      }
+      continue;
+    }
+
+    const creep = Game.creeps[creepName];
+    if (creep) {
+      processors[memory.processor].step(creep);
+    } else {
+      delete Memory.creeps[creepName];
+    }
   }
 };

@@ -1,18 +1,8 @@
 import { CreepMemoryHomeUpgrader, UpgraderRole } from "./types";
 
-export const step = function (creepName: string) {
-  const creep = Game.creeps[creepName];
+export const step = function (creep: Creep) {
 
-  if (!creep) return;
   const memory = creep.memory as CreepMemoryHomeUpgrader;
-
-  if (memory.pause) {
-    memory.pause--;
-    if (memory.pause < 0) {
-      delete memory.pause;
-    }
-    return;
-  }
 
   switch (memory.role) {
     case UpgraderRole.FindContainer:
