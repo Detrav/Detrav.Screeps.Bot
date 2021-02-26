@@ -2,6 +2,7 @@ import * as harvester from "./HomeHarvester";
 import * as builder from "./HomeBuilder";
 import * as homeExtPlacer from "./HomeExtentionPlacer";
 import * as homeUpgrader from "./HomeUpgrader";
+import * as homeFiller from "./HomeFiller";
 
 const result: CreepProcessors = {};
 
@@ -15,6 +16,7 @@ copyProcessors(harvester.processors, result);
 copyProcessors(builder.processors, result);
 copyProcessors(homeExtPlacer.processors, result);
 copyProcessors(homeUpgrader.processors, result);
+copyProcessors(homeFiller.processors, result);
 
 export const processors = result;
 export const processorsByPriority = _.sortBy(Object.values(result), m => m.priority);
