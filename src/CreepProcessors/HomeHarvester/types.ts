@@ -21,5 +21,4 @@ export interface CreepMemoryHomeHarvest extends CreepMemory {
   role: HarvesterRole;
   construct?: Id<ConstructionSite>;
   target?: Id<StructureContainer>;
-  pause?: number;
 }

@@ -25,6 +25,10 @@ export const step = function (creep: Creep) {
         } else {
           memory.role = HarvesterRole.SearchTarget;
         }
+
+        if (creep.store.getUsedCapacity(RESOURCE_ENERGY) === 0) {
+          memory.role = HarvesterRole.PullFromSource;
+        }
       }
       break;
     case HarvesterRole.BuildConstruct:

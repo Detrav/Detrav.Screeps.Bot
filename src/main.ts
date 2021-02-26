@@ -35,7 +35,12 @@ export const loop = function () {
 
     const creep = Game.creeps[creepName];
     if (creep) {
-      processors[memory.processor].step(creep);
+      const proc = processors[memory.processor];
+      if (proc) {
+        proc.step(creep);
+      } else {
+        delete Memory.creeps[creepName];
+      }
     } else {
       delete Memory.creeps[creepName];
     }

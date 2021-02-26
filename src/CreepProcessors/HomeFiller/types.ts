@@ -8,7 +8,6 @@ export enum FillerRole {
 export interface CreepMemoryHomeFiller extends CreepMemory {
   role: FillerRole;
   pid?: string;
-  pause?: number;
 }
 
 export const fillerCount = 1;

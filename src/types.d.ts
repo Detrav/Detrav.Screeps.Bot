@@ -1,17 +1,11 @@
 // example declaration file - remove these and add your own custom typings
 
+
+
 // memory extension samples
 interface CreepMemory {
   processor: CreepProcessorTypes;
   pause?: number;
-}
-
-declare enum CreepProcessorTypes {
-  HomeBuilder = 0,
-  HomeExtentionPlacer = 1,
-  HomeFiller = 2,
-  HomeHarvester = 3,
-  HomeUpgrader = 4
 }
 
 interface SpawnMemory {
