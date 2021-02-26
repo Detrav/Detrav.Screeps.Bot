@@ -1,6 +1,6 @@
 import { spawn } from "./spawn";
 import { step } from "./step";
-import { PROCESSOR_NAME } from "./structure";
+import { PROCESSOR_NAME } from "./types";
 
 // function containsKeeper(source: Source): boolean {
 //   const areaSize = 4;

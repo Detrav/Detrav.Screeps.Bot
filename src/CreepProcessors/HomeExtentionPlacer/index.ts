@@ -1,15 +1,15 @@
-import { step } from "./step";
 import { spawn } from "./spawn";
 import { PROCESSOR_NAME } from "./types";
 
+
 const processor: CreepProcessor = {
-  processorName: PROCESSOR_NAME,
-  priority: 0,
   config: function () {},
-  room: function (roomName: string) {},
+  processorName: PROCESSOR_NAME,
+  priority: 1,
   scan: function (creepName: string) {},
   spawn: spawn,
-  step: step
+  step: function (creepName: string) {},
+  room: function (roomName: string) {}
 };
 
 export const processors: CreepProcessor[] = [processor];

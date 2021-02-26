@@ -10,9 +10,18 @@ export const plan = planMake(`
   XXXXX
 `);
 
+export enum HarvesterRole {
+  PullFromSource = 2,
+  SearchTarget = 3,
+  BuildConstruct = 4,
+  RepairTarget = 5,
+  PushToTarget = 6
+}
+
 export interface CreepMemoryHomeHarvest extends CreepMemory {
-  source?: Id<Source>;
-  role?: "upgrading" ;
+  source: Id<Source>;
+  role: HarvesterRole;
   construct?: Id<ConstructionSite>;
   target?: Id<StructureContainer>;
+  pause?: number;
 }

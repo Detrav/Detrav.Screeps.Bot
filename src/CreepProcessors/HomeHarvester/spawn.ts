@@ -1,4 +1,5 @@
-import { CreepMemoryHomeHarvest, plan, PROCESSOR_NAME } from "./structure";
+import { CreepTemplate, trySpawnCreep } from "utils/SpawnHelper";
+import { CreepMemoryHomeHarvest, plan, PROCESSOR_NAME } from "./types";
 
 function placeContainerNearSource(source: Source) {
   const area = source.room.lookAtArea(source.pos.y - 2, source.pos.x - 2, source.pos.y + 2, source.pos.x + 2, true);
@@ -21,24 +22,20 @@ function placeContainerNearSource(source: Source) {
   }
 }
 
-function getCreepPowerByCapacity(spawn: StructureSpawn): BodyPartConstant[] {
-  if (spawn.room.energyCapacityAvailable >= 500) {
-    return [WORK, WORK, WORK, CARRY, MOVE];
-  } else {
-    return [WORK, CARRY, MOVE];
-  }
-}
+const templates: CreepTemplate[] = [
+  // 100 50 50 50 50 = 300
+  { energy: 500, body: [WORK, WORK, WORK, CARRY, MOVE] },
+  { energy: 300, body: [WORK, CARRY, MOVE] }
+];
 
 function SpawnCreepsForSource(spawn: StructureSpawn, source: Source, count: number) {
   for (let i = 0; i < count; i++) {
     const creepName = PROCESSOR_NAME + "-" + source.id + "-" + i;
     const creep = Game.creeps[creepName];
     if (!creep) {
-      spawn.spawnCreep(getCreepPowerByCapacity(spawn), creepName, {
-        memory: <CreepMemoryHomeHarvest>{
-          processor: PROCESSOR_NAME,
-          source: source.id
-        }
+      trySpawnCreep(spawn, templates, creepName, <CreepMemoryHomeHarvest>{
+        processor: PROCESSOR_NAME,
+        source: source.id
       });
     }
   }
@@ -60,6 +57,8 @@ export const spawn = function (spawnName: string) {
     const source = sources[sourceName];
     const count = calcCreepsCount(source);
     SpawnCreepsForSource(spawn, source, count);
-    placeContainerNearSource(source);
+    if (count > 0) {
+      placeContainerNearSource(source);
+    }
   }
 };
