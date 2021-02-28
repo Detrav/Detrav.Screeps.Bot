@@ -2,7 +2,7 @@ import { suckClosestContainer } from "Roles/SuckClosestContainer";
 import { upgradeController } from "Roles/UpgradeController";
 
 export const homeUpgrader: CreepProcessor = {
-  priority: 1,
+  priority: 2,
   processorType: CreepProcessorTypes.HomeUpgrader,
   creepSpawnTemplates: [
     {

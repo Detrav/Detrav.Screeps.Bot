@@ -9,4 +9,8 @@ export const loop = function () {
   procRooms();
   procSpawns();
   procCreeps();
+
+  if (Game.cpu.bucket >= 10000 && Game.cpu.generatePixel) {
+    Game.cpu.generatePixel();
+  }
 };

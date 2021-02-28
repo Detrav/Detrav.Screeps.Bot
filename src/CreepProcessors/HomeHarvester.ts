@@ -31,7 +31,7 @@ export const homeHarvester: CreepProcessor = {
     for (const sourceName in sources) {
       const source = sources[sourceName];
       for (let i = 0; i < template.creepCount; i++) {
-        const creepName = homeHarvester.processorType + "-" + spawn.name + "-" + source.id + "-" + i;
+        const creepName = homeHarvester.processorType + "-" + spawn.room.name + "-" + source.id + "-" + i;
         const creep = Game.creeps[creepName];
         if (!creep) {
           return (
