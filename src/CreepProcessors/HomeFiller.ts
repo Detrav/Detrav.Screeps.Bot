@@ -5,11 +5,10 @@ export const homefiller: CreepProcessor = {
   priority: 1,
   processorType: CreepProcessorTypes.HomeFiller,
   creepSpawnTemplates: [
-    { energy: 700, age: DetravAges.T3, body: [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], creepCount: 1 },
-    { energy: 300, age: DetravAges.T2, body: [WORK, CARRY, CARRY, CARRY, MOVE], creepCount: 1 },
-    { energy: 250, age: DetravAges.T1, body: [WORK, CARRY, MOVE], creepCount: 0 }
+    { energy: 700, body: [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], creepCount: 1, levels: [3, 4, 5, 6, 7, 8] },
+    { energy: 300, body: [WORK, CARRY, CARRY, CARRY, MOVE], creepCount: 1, levels: [2, 3, 4, 5, 6, 7, 8] }
   ],
-  creepSpawnTemplatesCache: [],
+  creepSpawnTemplatesCache: new Map<RoomLevel, CreepSpawnTemplate[]>(),
   roles: [pushEnergyToExtentions, suckClosestContainer],
   rolesCache: []
 };

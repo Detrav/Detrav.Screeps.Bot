@@ -1,10 +1,6 @@
-import { buildClosestStructure } from "Roles/BuildClosestStructure";
 import { buildStructureNearSpecifiSource } from "Roles/HomeHarvesterOnly/BuildStructureNearSpecifiSource";
-import { harvestClosestSource } from "Roles/HarvestClosestSource";
 import { harvestSpecificSource, HarvestSpecificSourceCreepMemory } from "Roles/HomeHarvesterOnly/HarvestSpecificSource";
 import { pushEnergyNearSpecificSource } from "Roles/HomeHarvesterOnly/PushEnergyNearSpecificSource";
-import { pushEnergyToExtentions } from "Roles/PushEnergyToExtenstions";
-import { repairClosestStructure } from "Roles/RepairClosestStructure";
 import { repairStructureNearSpecificSource } from "Roles/HomeHarvesterOnly/RepairStructureNearSpecificSource";
 import { placeContainerNearSpecificSource } from "Roles/HomeHarvesterOnly/PlaceContainerNearSpecificSource";
 
@@ -12,11 +8,16 @@ export const homeHarvester: CreepProcessor = {
   priority: -1,
   processorType: CreepProcessorTypes.HomeHarvester,
   creepSpawnTemplates: [
-    { energy: 700, age: DetravAges.T3, body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], creepCount: 1 },
-    { energy: 500, age: DetravAges.T2, body: [WORK, WORK, CARRY, CARRY, MOVE], creepCount: 1 },
-    { energy: 300, age: DetravAges.T1, body: [WORK, CARRY, MOVE], creepCount: 1 }
+    {
+      energy: 700,
+      body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+      creepCount: 1,
+      levels: [3, 4, 5, 6, 7, 8]
+    },
+    { energy: 500, body: [WORK, WORK, CARRY, CARRY, MOVE], creepCount: 1, levels: [2, 3, 4, 5, 6, 7, 8] },
+    { energy: 300, body: [WORK, CARRY, MOVE], creepCount: 1, levels: [1, 2, 3, 4, 5, 6, 7, 8] }
   ],
-  creepSpawnTemplatesCache: [],
+  creepSpawnTemplatesCache: new Map<RoomLevel, CreepSpawnTemplate[]>(),
   roles: [
     repairStructureNearSpecificSource,
     buildStructureNearSpecifiSource,

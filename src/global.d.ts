@@ -33,11 +33,16 @@ declare const enum CreepRoles {
 //   room: (roomName: string) => void;
 // }
 
-declare const enum DetravAges {
+declare const enum RoomLevel {
   No = 0,
-  T1 = 299,
-  T2 = 499,
-  T3 = 799
+  T1 = 1,
+  T2 = 2,
+  T3 = 3,
+  T4 = 4,
+  T5 = 5,
+  T6 = 6,
+  T7 = 7,
+  T8 = 8
 }
 
 declare const enum StepResult {
@@ -52,7 +57,7 @@ interface CreepProcessor {
   // list of all templates for spawn
   creepSpawnTemplates: CreepSpawnTemplate[];
   // auto fill property
-  creepSpawnTemplatesCache: CreepSpawnTemplate[];
+  creepSpawnTemplatesCache: Map<RoomLevel, CreepSpawnTemplate[]>;
   // list of all available roles
   roles: CreepRoleTemplate[];
   // auto fill property
@@ -70,8 +75,8 @@ interface CreepRoleTemplate {
 
 // template for
 interface CreepSpawnTemplate {
-  age: DetravAges;
   energy: number;
   body: BodyPartConstant[];
   creepCount: number;
+  levels: RoomLevel[];
 }
