@@ -1,24 +1,19 @@
 // example declaration file - remove these and add your own custom typings
 
-
-
 // memory extension samples
 interface CreepMemory {
   processor: CreepProcessorTypes;
   pause?: number;
+  pid?: string;
+  role?: CreepRoles;
 }
 
 interface SpawnMemory {
-  energyCapacity: number;
+  sleep?: number;
 }
 
-interface CreepProcessor {
-  processorType: CreepProcessorTypes;
-  priority: number;
-  config: () => void;
-  step: (creep: Creep) => void;
-  spawn: (spawnName: string) => void;
-  room: (roomName: string) => void;
+interface RoomMemory {
+  pause?: number;
 }
 
 interface Memory {

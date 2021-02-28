@@ -1,13 +1,13 @@
-export enum FillerRole {
-  SearchSource = 1,
-  PullFromSource = 2,
-  SearchTarget = 3,
-  PushToTarget = 4
-}
+// export enum FillerRole {
+//   SearchSource = 1,
+//   PullFromSource = 2,
+//   SearchTarget = 3,
+//   PushToTarget = 4
+// }
 
-export interface CreepMemoryHomeFiller extends CreepMemory {
-  role: FillerRole;
-  pid?: string;
-}
+// export interface CreepMemoryHomeFiller extends CreepMemory {
+//   role: FillerRole;
+//   pid?: string;
+// }
 
-export const fillerCount = 1;
+// export const fillerCount = 1;

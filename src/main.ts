@@ -1,48 +1,12 @@
-import { processors, processorsByPriority } from "./CreepProcessors";
+import { procConfigures } from "main.config";
+import { procCreeps } from "main.creep";
+import { procRooms } from "main.room";
+import { procSpawns } from "main.spawn";
 
-const global_period = processorsByPriority.length + 10;
-
-for (let proc of processorsByPriority) {
-  console.log(proc.processorType);
-}
+procConfigures();
 
 export const loop = function () {
-  const number = Game.time % global_period;
-
-  if (number < processorsByPriority.length) {
-    const proc = processorsByPriority[number];
-
-    proc.config();
-
-    for (let spawnName in Game.spawns) {
-      proc.spawn(spawnName);
-    }
-    for (let roomName in Game.rooms) {
-      proc.room(roomName);
-    }
-  }
-
-  for (let creepName in Memory.creeps) {
-    // lets pause
-    const memory = Memory.creeps[creepName];
-    if (memory.pause) {
-      memory.pause--;
-      if (memory.pause < 0) {
-        delete memory.pause;
-      }
-      continue;
-    }
-
-    const creep = Game.creeps[creepName];
-    if (creep) {
-      const proc = processors[memory.processor];
-      if (proc) {
-        proc.step(creep);
-      } else {
-        delete Memory.creeps[creepName];
-      }
-    } else {
-      delete Memory.creeps[creepName];
-    }
-  }
+  procRooms();
+  procSpawns();
+  procCreeps();
 };
