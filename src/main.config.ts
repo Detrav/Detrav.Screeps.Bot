@@ -1,16 +1,7 @@
 import { processorsByPriority } from "CreepProcessors";
 
 export const procConfigure = function (proc: CreepProcessor) {
-  proc.creepSpawnTemplatesCache.clear();
-
-  for (let template of proc.creepSpawnTemplates) {
-    for (let roomLevel of template.levels) {
-      let templates = proc.creepSpawnTemplatesCache.get(roomLevel) || [];
-      templates.push(template);
-      templates = _.sortBy(templates, m => -m.energy);
-      proc.creepSpawnTemplatesCache.set(roomLevel, templates);
-    }
-  }
+  proc.creepSpawnTemplatesCache = _.sortBy(proc.creepSpawnTemplates, m => -m.energy);
   proc.rolesCache = [];
 
   for (let role of proc.roles) {

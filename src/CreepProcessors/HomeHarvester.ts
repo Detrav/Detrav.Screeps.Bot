@@ -11,13 +11,12 @@ export const homeHarvester: CreepProcessor = {
     {
       energy: 700,
       body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-      creepCount: 1,
-      levels: [3, 4, 5, 6, 7, 8]
+      creepCount: 1
     },
-    { energy: 500, body: [WORK, WORK, CARRY, CARRY, MOVE], creepCount: 1, levels: [2, 3, 4, 5, 6, 7, 8] },
-    { energy: 300, body: [WORK, CARRY, MOVE], creepCount: 1, levels: [1, 2, 3, 4, 5, 6, 7, 8] }
+    { energy: 500, body: [WORK, WORK, CARRY, CARRY, MOVE], creepCount: 1 },
+    { energy: 300, body: [WORK, CARRY, MOVE], creepCount: 1 }
   ],
-  creepSpawnTemplatesCache: new Map<RoomLevel, CreepSpawnTemplate[]>(),
+  creepSpawnTemplatesCache: [],
   roles: [
     repairStructureNearSpecificSource,
     buildStructureNearSpecifiSource,

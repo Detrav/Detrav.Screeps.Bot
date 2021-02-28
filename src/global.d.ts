@@ -23,28 +23,6 @@ declare const enum CreepRoles {
   SuckClosestContainer = 20
 }
 
-// old processor
-// interface CreepProcessor {
-//   processorType: CreepProcessorTypes;
-//   priority: number;
-//   config: () => void;
-//   step: (creep: Creep) => void;
-//   spawn: (spawnName: string) => void;
-//   room: (roomName: string) => void;
-// }
-
-declare const enum RoomLevel {
-  No = 0,
-  T1 = 1,
-  T2 = 2,
-  T3 = 3,
-  T4 = 4,
-  T5 = 5,
-  T6 = 6,
-  T7 = 7,
-  T8 = 8
-}
-
 declare const enum StepResult {
   Continue = 0,
   Stop = 1
@@ -57,13 +35,14 @@ interface CreepProcessor {
   // list of all templates for spawn
   creepSpawnTemplates: CreepSpawnTemplate[];
   // auto fill property
-  creepSpawnTemplatesCache: Map<RoomLevel, CreepSpawnTemplate[]>;
+  creepSpawnTemplatesCache: CreepSpawnTemplate[];
   // list of all available roles
   roles: CreepRoleTemplate[];
   // auto fill property
   rolesCache: CreepRoleTemplate[];
   // custom spawnFunction no creepCount used for it
   customSpawn?: (spawn: StructureSpawn, template: CreepSpawnTemplate) => boolean;
+  spawnAllowed?: (spawn: StructureSpawn) => boolean;
 }
 
 // template for role
@@ -78,5 +57,4 @@ interface CreepSpawnTemplate {
   energy: number;
   body: BodyPartConstant[];
   creepCount: number;
-  levels: RoomLevel[];
 }

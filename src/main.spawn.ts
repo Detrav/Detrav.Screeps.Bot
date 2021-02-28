@@ -20,14 +20,16 @@ const foreachSpawn = function (spawn: StructureSpawn, energy: number) {
   const level = spawn.room.controller?.level || 0;
 
   for (let proc of processorsByPriority) {
-    const templates = proc.creepSpawnTemplatesCache.get(level);
-    if (templates) {
-      for (let template of templates) {
-        if (template.energy > energy) continue;
-        if (proc.customSpawn) {
-          if (proc.customSpawn(spawn, template)) return;
-        } else {
-          if (spawnOne(spawn, proc, template)) return;
+    if (!proc.spawnAllowed || proc.spawnAllowed(spawn)) {
+      const templates = proc.creepSpawnTemplatesCache;
+      if (templates) {
+        for (let template of templates) {
+          if (template.energy > energy) continue;
+          if (proc.customSpawn) {
+            if (proc.customSpawn(spawn, template)) return;
+          } else {
+            if (spawnOne(spawn, proc, template)) return;
+          }
         }
       }
     }
